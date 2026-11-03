@@ -1,0 +1,18 @@
+{
+  "_regle": "Modifiable par le maître agent (recalibrage mensuel via `python3 -m moteur calibrer`), chaque changement est commité et justifié.",
+  "seuil_envoi": 60,
+  "seuil_priorite": 75,
+  "poids": {
+    "zone_strasbourg": 20,
+    "zone_alsace": 10,
+    "boite_decideur": 15,
+    "boite_contact_local": 8,
+    "declencheur": 20,
+    "actif_14j": 10,
+    "publie_sans_effet": 10,
+    "pub_meta": 10,
+    "matiere_exploitable": 5,
+    "pas_video_pro": 5
+  },
+  "exclusions": ["chaine", "concurrent", "secteur_sensible", "liquidation", "particulier", "guichet", "sans_source", "desinscrit"]
+}

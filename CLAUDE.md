@@ -7,8 +7,13 @@ documents de `docs/` utiles à ta tâche. `docs/03-garde-fous.md` s'applique tou
 - **Couche par couche, avec feu vert.** On ne commence une couche que si Zak a validé la précédente
   (« feu vert », « je valide », « go »). État des couches : `README.md`.
 - **Aucun envoi à un prospect avant la couche 5**, et jamais si le fichier `PAUSE` existe.
-- **Aucune donnée personnelle dans ce dépôt tant qu'il est public** (noms, adresses e-mail, contenu de réponses).
-  Les exemples sont fictifs et annoncés comme tels ; les chiffres du diagnostic sont agrégés.
+- **Aucune donnée personnelle en clair dans ce dépôt** (noms, adresses e-mail, contenu de réponses) : elles vivent dans
+  `donnees/` (ignoré par git) et ne voyagent que chiffrées dans `coffre/`. Début de session : récupérer la clé dans le
+  Drive de Zak (fichier « BROOZE prospection - clé du coffre », id 1QIi0DG2ec7upeCcvEWvj8Ut5yuo7x0i7, outil Google Drive
+  read_file_content), `export BROOZE_CLE=…`, récupérer le coffre (Drive « BROOZE prospection - coffre » tant que le
+  dépôt est public, `coffre/` une fois le dépôt privé), `python3 -m moteur coffre ouvrir`. Fin : `coffre fermer`, puis
+  nouvelle copie du coffre dans le Drive. Ne jamais écrire la clé dans un fichier du dépôt. Exemples fictifs et annoncés comme tels ; chiffres agrégés.
+- **Avant chaque envoi : `python3 -m moteur peut-envoyer …` doit répondre AUTORISÉ.** Juste après : `envoye …`.
 - **La vérité est un capital** : aucun chiffre, client, témoignage ou résultat inventé ; chaque fait sur un prospect
   a sa source.
 - Envoi uniquement depuis contact@broozeproduction.fr ; plafonds et coupe-circuit de `docs/03-garde-fous.md`.

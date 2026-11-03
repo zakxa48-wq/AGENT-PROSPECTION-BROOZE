@@ -1,0 +1,8 @@
+# Données prospects : personnelles (RGPD). Jamais en clair dans ce dépôt public.
+# Elles voyagent chiffrées dans coffre/ (voir docs/07-moteur.md).
+donnees/
+__pycache__/
+*.pyc
+
+# Coffre chiffré : versionné seulement quand le dépôt sera privé (décision de Zak).
+coffre/

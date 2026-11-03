@@ -1,71 +1,93 @@
 # 01 · Diagnostic : ce que disent 7 semaines de vraie prospection
 
 Source : la boîte Gmail de Brooze (contact@broozeproduction.fr et l'ancienne adresse broozeproduction@gmail.com),
-lue le 03/11/2026. Période : du 14/09 au 02/11/2026. Les chiffres sont des **relevés approximatifs** (comptés à la
-main dans Gmail, à ± 10 %). Ils servent de **point de référence** : le maître agent compare tout à ces valeurs.
+relue fil par fil le 03/11/2026 et importée dans le moteur (210 premiers contacts, 258 envois, du 14/09 au 02/11/2026).
+Chaque échec de remise a été lu un par un. Les chiffres ci-dessous sortent de `python3 -m moteur rapport hebdo`.
 
-Ce dépôt est public : aucun nom de personne ni adresse e-mail n'est écrit ici, seulement des catégories.
+Ce dépôt est public : aucun nom de personne ni adresse e-mail ici, seulement des catégories. Le détail est chiffré
+dans `coffre/`.
 
 ## Les chiffres de référence (baseline)
 
-| Indicateur | Valeur relevée | Objectif sain |
+| Indicateur | Valeur mesurée | Objectif |
 |---|---|---|
-| Premiers contacts envoyés | ≈ 200 (≈ 220 fils sortants, dont quelques non-prospection) | 50 / semaine minimum |
-| Échecs de remise (bounces) | ≈ 25, soit **≈ 12 %** | **< 2 %** |
-| Limite d'envoi Gmail atteinte | **1 fois** (29/09, ancienne adresse @gmail) | 0 |
-| Réponses humaines | ≈ 18, soit ≈ 9 % | ≥ 10 % |
-| Réponses positives (rendez-vous, intérêt, demande de prix) | ≈ 5, soit ≈ 2,5 % | ≥ 3 % |
-| Rendez-vous obtenus | 3 à 4 | ≥ 1 / semaine |
-| Clients signés | 0 trouvé dans la boîte | 1er pilote ≤ 30 jours |
+| Premiers contacts | 210 en 7 semaines (≈ 6 par jour ouvré) | ≥ 10 par jour ouvré |
+| Délivrés | 187/210 = **89 %** | ≥ 98 % |
+| dont messages **bloqués par Google** | 19 | 0 |
+| dont adresses réellement invalides | 4 (1,9 %) | < 2 % |
+| Limite d'envoi Gmail atteinte | 1 fois (29/09, ancienne adresse) | 0 |
+| Réponses humaines | 19/187 = 10,2 % | ≥ 10 % |
+| Réponses positives (intérêt, rendez-vous, demande de prix) | 5, soit 26 % des réponses | ≥ 30 % des réponses |
+| Rendez-vous | 3 sur 5 réponses positives (+ 1 lead rencontré sur place) | — |
+| Clients signés | 0 | 1er pilote sous 30 jours |
+
+## Découverte n° 1 : ce ne sont pas les adresses, ce sont les rafales
+
+19 des 23 échecs sont des « **Message bloqué** » (12 lus un par un, 7 déduits car partis dans la même minute que
+deux blocages lus) : c'est Google qui refuse d'envoyer, parce que les mails partaient par paquets. Le moteur a recalculé, pour chacun des 258 envois, combien de mails étaient partis dans les 10 minutes
+précédentes :
+
+| Envois dans les 10 minutes | Envois | Bloqués par Google |
+|---|---|---|
+| 1 à 2 | 112 | 1 (1 %) |
+| 3 à 5 | 93 | 2 (2 %) |
+| 6 à 9 | 41 | 11 (27 %) |
+| 10 et plus | 12 | 5 (42 %) |
+
+Pire journée : le 29/09, 10 relances parties en 3 minutes, 9 bloquées, et la limite d'envoi atteinte sur l'ancienne
+adresse. C'est exactement le blocage que Zak veut éviter. **Preuve : prouvé** (cause D3 du moteur). Le garde-fou impose
+désormais 3 minutes minimum entre deux envois, soit 4 mails au plus en 10 minutes, dans la zone à 1 ou 2 %.
+
+## Découverte n° 2 : la cible, plus que le texte
+
+| Facteur | Ce que montrent les données | Niveau de preuve |
+|---|---|---|
+| Zone | Strasbourg 14,7 % de réponses (15/102), Alsace 8,3 % (1/12), reste de la France 5,6 % (3/54) | probable |
+| Type de boîte | adresse perso (souvent lue par le patron) 16,7 %, contact@ 10,8 %, adresse nominative de marque 4,5 % | probable |
+| Segment | lieux, artisans et associations locales 12 à 18 % ; marques nationales 5,8 % ; PME nommées 0 % | probable |
+| Campagne | campagne locale d'octobre 19,4 % ; marques nationales avec PDF et prix : 10 % de réponses, **toutes des refus** | probable |
+| Prix ou pièce jointe dans le 1er mail | 10,0 % contre 10,2 % de réponses : aucun effet mesurable sur le taux de réponse | non concluant |
+| Relances | 0 des 19 réponses n'est arrivée après une relance | prouvé (mais relances faibles ou bloquées) |
+
+Biais signalé honnêtement : zone et segment sont estimés d'après les noms et les campagnes. Ces conclusions orientent
+le ciblage, elles seront confirmées ou démenties par les envois de l'agent, qui enregistre tout dès le départ.
 
 ## Ce qui a marché
 
-- **Les indépendants locaux (Strasbourg) dont la boîte est lue par le patron.** Presque toutes les réponses humaines et
-  **100 % des réponses positives** viennent de là : restaurant de quartier, lieu culturel, atelier de cuisine, marché de
-  créateurs, studio bien-être. Les rendez-vous se font facilement, souvent sur place.
-- **Les mails courts avec une idée concrète et une question d'intérêt** (« si ça vous parle, je vous envoie deux idées
-  plus précises ») : c'est le format qui a obtenu les rendez-vous.
-- **Les documents visuels envoyés APRÈS un oui** : une prospecte a répondu « sincèrement je suis très impressionnée ».
+- Les **indépendants strasbourgeois dont la boîte est lue par le patron** : toutes les réponses positives.
+- Les mails courts avec une idée concrète et une question d'intérêt (« si ça vous parle, je vous envoie deux idées »).
+- Le document visuel envoyé **après** un oui (« sincèrement je suis très impressionnée »).
+- Le terrain : les rendez-vous se font facilement sur place à Strasbourg.
 
 ## Ce qui n'a pas marché
 
-1. **Les marques nationales via contact@, bonjour@, sav@** (≈ 60 envois mi-octobre → début novembre, avec PDF et prix) :
-   0 réponse positive. Des tickets de support automatiques, des enquêtes de satisfaction, des refus polis. Ces boîtes
-   sont des guichets, pas des décideurs.
-2. **La délivrabilité** : ≈ 12 % de bounces et une limite d'envoi atteinte. C'est exactement ce qui fait bloquer un
-   compte. Cause : des adresses non vérifiées (devinées ou périmées) et des rafales d'envois.
-3. **Le timing** : en octobre, plusieurs commerces avaient **déjà réservé leur vidéaste pour Noël** (« votre
-   proposition serait tombée à point »). Il faut écrire 6 à 10 semaines avant le pic, pas 3.
-4. **L'après-rendez-vous** : 2 à 3 prospects chauds sont retombés faute de proposition chiffrée envoyée vite et de suivi
-   planifié. Une réponse « nous gardons vos coordonnées pour collaborer dans les prochains mois » est restée **non lue
-   depuis le 02/10**.
-5. **Le style perçu comme machinal** : une réponse commence par « Bonsoir IA (?) ». Signal d'alarme sur l'écriture.
-6. **Le prix et un PDF lourd (jusqu'à 5 Mo) dès le premier mail** aux marques : aucun signe que ça aide, et c'est
-   mauvais pour la délivrabilité.
+1. Les **rafales d'envois** (ci-dessus).
+2. Les **marques nationales via leurs guichets** (contact@, bonjour@, sav@) : tickets automatiques, enquêtes de
+   satisfaction, refus polis. Aucune réponse positive.
+3. Le **timing** : en octobre, plusieurs commerces avaient déjà réservé leur vidéaste pour Noël.
+4. L'**après-rendez-vous** : aucune proposition chiffrée envoyée vite, pas de suivi planifié. 6 leads tièdes
+   attendent aujourd'hui une relance utile (liste dans `python3 -m moteur file`, section 5), dont une réponse
+   « nous gardons vos coordonnées pour collaborer dans les prochains mois » restée sans suite depuis le 02/10.
+5. Le **style perçu comme machinal** : une réponse commence par « Bonsoir IA (?) ».
+6. Les **relances** sans élément nouveau (« je reviens vers vous ») : elles n'ont rien rapporté.
 
-## Les vraies objections entendues (13 refus classés)
+## Les objections entendues (19 réponses)
 
-| Objection | Fréquence | Ce qu'elle révèle |
+| Objection | Fois | Ce qu'elle révèle |
 |---|---|---|
-| « On a déjà un vidéaste / on fait tout en interne » | 5 | Ils croient à la vidéo et ont un budget : c'est un **signal de qualification**, pas un mur |
-| « Pas le bon moment / trop tard » | 2 | Problème de **calendrier**, pas d'intérêt |
-| « Pas de budget » | 1 à 2 | Surtout associations : cibler celles qui ont un événement, une campagne ou une subvention |
-| « On n'a pas tout compris » | 1 | Message trop abstrait : une image concrète, pas un concept |
-| « Pas intéressé » sans raison | 4 | Ciblage ou accroche faible |
-| « Ce n'est plus une priorité » | 1 | Déclencheur périmé |
+| « Pas intéressé » sans raison | 7 | Ciblage (surtout marques nationales et guichets) |
+| « Déjà un vidéaste / tout en interne » | 5 | Ils croient à la vidéo et ont un budget : **signal de qualification** et angle « déclinaisons de vos rushes » |
+| Intérêt, rencontre, demande de prix | 5 | — |
+| « Pas le moment » | 1 | Calendrier |
+| Redirection vers la bonne personne | 1 | À suivre jusqu'au décideur |
 
 ## Les 8 leçons qui fondent l'agent
 
-- **L1.** Le local + une boîte lue par le décideur = le seul segment qui répond. Strasbourg et l'Eurométropole d'abord.
-- **L2.** « On a déjà un vidéaste » devient un angle : Brooze ne remplace personne, nous transformons les rushes
-  existants en formats courts qui performent. C'est notre cœur de métier (la post-production à partir de l'existant).
-- **L3.** Toujours viser le prochain pic du prospect, 6 à 10 semaines avant (calendrier dans `02-offre-cible.md`).
-- **L4.** La fuite n'est pas en haut de l'entonnoir, elle est **après** le rendez-vous : proposition sous 24 h,
-  offre d'entrée claire, suivi planifié.
-- **L5.** Délivrabilité d'abord : chaque adresse est trouvée sur une source officielle et vérifiée. Sinon, pas d'envoi.
-- **L6.** Marques nationales : seulement avec un décideur nommé, jamais un guichet.
+- **L1.** Strasbourg et l'Eurométropole d'abord, boîte lue par le décideur.
+- **L2.** « On a déjà un vidéaste » est un angle : nous transformons les rushes existants en formats courts.
+- **L3.** Toujours viser le prochain pic du prospect, 6 à 10 semaines avant.
+- **L4.** La fuite est après le rendez-vous : proposition sous 24 h, offre d'entrée claire, suivi planifié.
+- **L5.** Jamais de rafale : 3 minutes minimum entre deux envois, codé dans le garde-fou (preuve ci-dessus).
+- **L6.** Marques nationales : seulement avec un décideur nommé et un signal, jamais un guichet.
 - **L7.** Écrire comme un humain qui a vraiment regardé : court, précis, une seule question.
-- **L8.** Premier mail sans prix ni pièce jointe ; le document visuel part après un oui (en deux temps).
-
-Ce que les données **ne permettent pas** de conclure (trop peu de cas) : l'effet de la mention « étudiant à l'EM
-Strasbourg », du « je » contre le « nous », ou de l'heure d'envoi. Ce sont des tests pour le maître agent.
+- **L8.** Premier mail sans prix ni pièce jointe : aucun bénéfice mesuré, et un risque de délivrabilité.

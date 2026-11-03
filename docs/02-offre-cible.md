@@ -9,13 +9,13 @@ obligatoire.
 
 Ce qu'on ne dit jamais : « juste du montage », « je construis mes premiers cas clients », un mot sur l'IA ou les outils.
 
-### L'échelle d'offre (structure, prix à valider par Zak)
+### L'échelle d'offre (`config/offre.json`, seule source de prix que l'agent a le droit de citer)
 
 | Marche | Contenu | Rôle | Prix |
 |---|---|---|---|
 | 1. L'idée offerte | 2–3 idées de vidéo en images (« Brooze × [marque] »), envoyées après un oui | Démontrer avant de demander | 0 € (seulement sur demande du prospect) |
-| 2. Le pilote | 1 vidéo verticale 15–30 s à partir de leurs images, scénario, motion, son, 1 aller-retour | Premier achat, faible risque | **À fixer** (déjà proposé : 400 € à une structure locale, 560–597 € TTC à des marques) |
-| 3. Brooze Continu | X vidéos par mois à partir de leur matière + plan de contenu + bilan mensuel | **Le client récurrent : l'objectif central** | **À fixer** (2 ou 3 formules) |
+| 2. Le pilote (« Projet » sur le site) | 1 vidéo verticale 15–20 s à partir de leurs images : idée, montage, motion, son, 1 série de corrections ; hors tournage et 3D complexe | Premier achat, faible risque | **560 € TTC** (prix des dernières propositions ; le site affiche « sur devis ») |
+| 3. Brooze Continu | Des vidéos courtes chaque mois à partir de leur matière, rien à tourner, un point mensuel | **Le client récurrent : l'objectif central** | **Sur devis, réponse sous 48 h** (comme le site) tant que Zak n'a pas fixé de grille |
 
 Mécanique éprouvée à valider : **le prix du pilote est déduit** si le client passe à Brooze Continu dans les 30 jours.
 Le pilote devient un essai, et la question devient « on continue ? » plutôt que « on recommence ? ».

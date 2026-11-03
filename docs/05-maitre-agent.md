@@ -37,6 +37,11 @@ Brooze** (Brooze Continu). Le reste (envois, réponses, rendez-vous) n'est qu'un
 
 ## Son arbre de diagnostic (il cherche le goulot, dans cet ordre)
 
+Il est codé dans `moteur/diagnostic.py` : entonnoir avec probabilité d'être sous la cible, goulot = l'étape dont la
+correction multiplierait le plus les clients, scan automatique de toutes les caractéristiques enregistrées, et
+33 causes testées (`config/causes.json`) avec un niveau de preuve : prouvé, probable, piste, non concluant, écarté,
+données insuffisantes. Il justifie les réussites de la même façon (« ce qui marche »).
+
 1. **Bounces élevés** → problème de sourcing ou de vérification → directive à l'Éclaireur.
 2. **Bien délivré, mais réponses < 5 %** → d'abord le **segment** (comparer local et national, décideur et guichet),
    ensuite la **ligne 1** (assez précise ?), enfin l'objet.
@@ -49,7 +54,9 @@ Brooze** (Brooze Continu). Le reste (envois, réponses, rendez-vous) n'est qu'un
 
 - Une variable à la fois, en commençant par les **gros leviers** : segment > offre > angle > appel à l'action > objet
   > formulation.
-- Hypothèse et critère de succès **écrits avant** de lancer (dans `pilotage/experiences.md`, à partir de la couche 6).
+- Hypothèse et critère de succès **écrits avant** de lancer : chaque approche est un bras de `config/approches.json`
+  (A témoin avec « étudiant à l'EM Strasbourg », B « le trésor des avis », C « la question qui pique », tous gardent la
+  mention EM). L'échantillonnage de Thompson renforce automatiquement les gagnants (`python3 -m moteur experiences`).
 - **Au moins 40 envois par variante** avant de lire un résultat. À 10 mails par jour, on ne détecte que les gros écarts
   (par exemple 5 % contre 15 %) : il le dit honnêtement au lieu de surinterpréter.
 - Premiers tests prévus : « étudiant à l'EM Strasbourg » mentionné ou non ; objet descriptif ou question ; idée
@@ -57,7 +64,8 @@ Brooze** (Brooze Continu). Le reste (envois, réponses, rendez-vous) n'est qu'un
 
 ## Ses directives
 
-Écrites dans `pilotage/directives.md` (couche 6), lues par l'agent exécutant **au début de chaque passage**, au format :
+Proposées par `python3 -m moteur rapport hebdo` (section 8, tirées des causes prouvées), validées par le Maître,
+écrites dans `donnees/pilotage.json` et lues par l'agent exécutant **au début de chaque passage**, au format :
 
 ```
 D-AAAA-MM-JJ-n | Constat chiffré | Ce qu'on change | Comment on mesure | Durée | Critère d'arrêt

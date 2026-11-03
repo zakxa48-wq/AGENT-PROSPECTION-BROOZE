@@ -1,0 +1,34 @@
+{
+  "_regle": "Tests A/B/C en continu (échantillonnage de Thompson). Le maître agent peut ajouter ou retirer un bras ; le témoin garde au moins 30 % des envois tant qu'aucun champion n'est prouvé.",
+  "recompense": "positive",
+  "prior": [1, 30],
+  "maturation": {"jours": [0, 2, 5, 9, 16], "part": [0.0, 0.45, 0.7, 0.88, 1.0]},
+  "part_min_temoin": 0.3,
+  "part_min_bras": 0.1,
+  "seuil_champion": 0.95,
+  "seuil_retrait": 0.03,
+  "essais_min": 40,
+  "bras": [
+    {
+      "id": "A",
+      "nom": "Témoin : observation précise + idée + étudiant EM",
+      "statut": "actif",
+      "temoin": true,
+      "consignes": "L1 : un détail vrai et précis sur eux. L2 : la douleur en hypothèse, liée à leur prochain pic. L3 : l'idée, ce qu'on voit à l'écran, avec leur matière. L4 : « Je suis Zakaria, étudiant à l'EM Strasbourg ; je développe Brooze Production, studio vidéo à Strasbourg. » L5 : « Je vous envoie les 3 premières images ? »"
+    },
+    {
+      "id": "B",
+      "nom": "Le trésor des avis",
+      "statut": "actif",
+      "temoin": false,
+      "consignes": "Ouvre sur ce que LEURS clients disent (citation courte et exacte d'un avis Google ou d'un commentaire, source notée), constate que ce n'est pas visible dans leur contenu, puis l'idée qui le montre. Mention étudiant EM gardée. Même appel à l'action que le témoin."
+    },
+    {
+      "id": "C",
+      "nom": "La question qui pique",
+      "statut": "actif",
+      "temoin": false,
+      "consignes": "Ouvre sur une question sincère sur leur statu quo, liée à leur prochain pic (ex. « Qui pousse votre porte en janvier sans vous connaître ? »), puis l'idée, puis la mention étudiant EM. Ton non présomptueux. Appel à l'action : « Ça vaut le coup que je vous la montre ? »"
+    }
+  ]
+}

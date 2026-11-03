@@ -1,0 +1,22 @@
+{
+  "_regle": "Réservé à Zak. Le maître agent peut seulement durcir ces valeurs (donnees/pilotage.json), jamais les assouplir.",
+  "expediteur": "contact@broozeproduction.fr",
+  "fuseau": "Europe/Paris",
+  "jours_envoi": [0, 1, 2, 3, 4],
+  "jours_feries_alsace": true,
+  "fenetres_premier_contact": [["09:15", "11:00"], ["14:30", "16:30"]],
+  "fenetre_reponses": ["08:00", "21:00"],
+  "paliers_premier_contact": [10, 15, 20],
+  "plafond_total_jour": 35,
+  "espacement_min_minutes": 3,
+  "max_envois_15_minutes": 6,
+  "bounces_max_pct_50_derniers": 3.0,
+  "bounces_max_jour": 2,
+  "arret_apres_limite_heures": 24,
+  "arret_apres_plainte_jours": 7,
+  "note_sceptique_min": 8,
+  "delai_recontact_jours": 180,
+  "sequence_jours_ouvres": [0, 3, 7, 12],
+  "palier_2": {"jours_ouvres_min": 10, "bounce_max_pct": 2.0, "note_moyenne_min": 8.5},
+  "palier_3": {"jours_ouvres_min": 20, "bounce_max_pct": 2.0, "note_moyenne_min": 8.5}
+}

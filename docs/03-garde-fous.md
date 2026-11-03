@@ -5,10 +5,14 @@ peut, par écrit dans ce fichier.
 
 ## 1. Délivrabilité (anti-blocage)
 
-Pourquoi Gmail bloque : pas à cause d'un nombre précis de mails, mais à cause de **signaux de spam** : adresses qui
-n'existent pas (bounces), rafales d'envois, contenus identiques, signalements « spam », liens et pièces jointes de la
-part d'un inconnu. Le 29/09, l'ancienne adresse @gmail a atteint sa limite ; sur 7 semaines, ≈ 12 % des envois ont
-rebondi. Ces deux causes sont traitées ici.
+Pourquoi Gmail bloque : pas à cause d'un nombre précis de mails, mais à cause de **signaux de spam** : rafales
+d'envois, adresses qui n'existent pas, contenus identiques, signalements « spam », liens et pièces jointes de la part
+d'un inconnu. Mesuré sur notre historique (258 envois) : **1 à 2 % de messages bloqués par Google quand on envoie 1 à
+5 mails en 10 minutes, 27 % à 6–9, 42 % à 10 ou plus** ; seulement 1,9 % d'adresses réellement invalides. Le 29/09,
+10 relances en 3 minutes ont donné 9 blocages et la limite d'envoi de l'ancienne adresse.
+
+Toutes les règles de cette section sont **codées** dans `moteur/garde_fou.py` (valeurs dans `config/garde_fous.json`) :
+l'agent doit obtenir `python3 -m moteur peut-envoyer …` avant chaque envoi.
 
 ### Prérequis (une fois, côté Zak, à vérifier)
 - Envoi **uniquement** depuis contact@broozeproduction.fr (Google Workspace). Plus jamais l'ancienne adresse @gmail.
@@ -24,7 +28,7 @@ rebondi. Ces deux causes sont traitées ici.
 | Total des envois externes par jour (premiers contacts + relances + réponses) | ≤ 35 |
 | Jours d'envoi des premiers contacts | lundi → vendredi (le week-end : recherche, préparation, analyse) |
 | Fenêtres d'envoi (heure de Paris) | 9 h 15 – 11 h 00 et 14 h 30 – 16 h 30 ; jamais pendant le service d'un restaurant |
-| Espacement | ≥ 3 minutes entre deux envois, jamais plus de 6 envois en 15 minutes |
+| Espacement | ≥ 3 minutes entre deux envois (donc 4 au plus en 10 minutes), jamais plus de 6 envois en 15 minutes |
 
 Le plafond technique de Workspace (≈ 2 000 mails par jour) n'est pas la limite qui compte : c'est la réputation.
 
@@ -66,8 +70,8 @@ Le plafond technique de Workspace (≈ 2 000 mails par jour) n'est pas la limite
 - Minimisation : on ne garde que l'organisation, le rôle, l'adresse professionnelle, la source et l'historique.
   Durée : **3 ans maximum** après le dernier contact venant du prospect, puis suppression. La liste d'exclusion est
   conservée (sous forme minimale) pour respecter les refus.
-- **Aucune donnée personnelle dans un dépôt public.** Ce dépôt est public : le CRM vivra dans un espace privé
-  (décision à prendre, voir `06-feuille-de-route.md`).
+- **Aucune donnée personnelle en clair dans un dépôt public.** Les données vivent dans `donnees/` (jamais versionné)
+  et voyagent chiffrées en AES-256 dans `coffre/` ; la clé est dans le Drive privé de Zak (`docs/07-moteur.md`).
 - Pas d'aspiration automatisée de sites qui l'interdisent (LinkedIn notamment) : sources consultées normalement.
 
 ## 3. L'honnêteté (la vérité est un capital)

@@ -1,0 +1,21 @@
+{
+  "_regle": "Réservé à Zak. L'agent ne cite jamais un prix absent de ce fichier.",
+  "source": "Site broozeproduction.fr (version du dépôt brooze-kit : « Tarif sur devis · réponse sous 48 h ») et brouillons de prospection d'octobre-novembre 2026.",
+  "promesse": "Des vidéos qu'on regarde jusqu'au bout et qui donnent envie de venir, d'appeler ou de réserver. Avec ou sans tournage.",
+  "zone": "Strasbourg et Grand Est pour les tournages ; partout en France à distance sans tournage.",
+  "pilote": {
+    "nom": "Projet pilote",
+    "contenu": "1 vidéo verticale de 15 à 20 s à partir de vos photos et vidéos : idée, montage, motion design, sound design, 1 série de corrections. Message et angle validés par écrit avant de produire.",
+    "exclus": "Tournage sur place et modélisation 3D complexe.",
+    "prix_ttc": 560,
+    "a_confirmer_par_zak": true
+  },
+  "continu": {
+    "nom": "Brooze Continu",
+    "contenu": "Des vidéos courtes chaque mois, écrites et montées pour vos clients ; rien à tourner ; un point chaque mois (ce qui a marché, ce qu'on change) ; le nombre de vidéos suit votre rythme et votre budget.",
+    "prix_mensuel_ttc": null,
+    "si_prix_inconnu": "Tarif sur devis, réponse sous 48 h : proposer un échange de 20 minutes."
+  },
+  "mecanique_conversion": "À valider par Zak : le prix du pilote déduit si passage à Brooze Continu sous 30 jours.",
+  "contact": {"whatsapp": "06 60 70 73 68", "dans_signature": false}
+}

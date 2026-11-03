@@ -1,0 +1,17 @@
+{
+  "_regle": "Cibles de départ. Le maître agent les relève automatiquement quand elles sont tenues 2 semaines (python3 -m moteur objectifs ajuster) ; il ne les baisse jamais sans l'écrire et le justifier.",
+  "cibles": {
+    "envois_semaine": 50,
+    "delivrabilite": 0.98,
+    "reponse": 0.10,
+    "positivite": 0.30,
+    "rdv": 0.50,
+    "proposition": 1.0,
+    "closing": 0.30,
+    "recurrence": 0.50,
+    "delai_reponse_heures": 1
+  },
+  "plafonds": {"delivrabilite": 0.995, "reponse": 0.30, "positivite": 0.70, "rdv": 0.80, "closing": 0.60, "recurrence": 0.80},
+  "pas_relevement": 0.10,
+  "reference_diagnostic_2026_11": {"delivrabilite": 0.88, "reponse": 0.09, "positivite": 0.28, "rdv": 0.7, "closing": 0.0}
+}

@@ -11,9 +11,10 @@ Il se construit **couche par couche**, chaque couche validée par Zak avant la s
 
 | Couche | Statut |
 |---|---|
-| 1 · Le socle (constitution, diagnostic, méthode, garde-fous, charte du Maître) | ✅ livrée, en attente du feu vert |
-| 2 · La mémoire (CRM privé, import de l'historique, plafonds codés) | à faire |
-| 3 → 10 | voir [`docs/06-feuille-de-route.md`](docs/06-feuille-de-route.md) |
+| 1 · Le socle (constitution, diagnostic, méthode, garde-fous, charte du Maître) | ✅ validée |
+| 2 · La mémoire et le moteur (CRM chiffré, historique Gmail importé, garde-fou codé, tests A/B/C, diagnostic) | ✅ livrée, en attente du feu vert |
+| 3 · L'Éclaireur (sourcing et qualification, dont la liste de 100 de Zak) | prochaine |
+| 4 → 10 | voir [`docs/06-feuille-de-route.md`](docs/06-feuille-de-route.md) |
 
 ## Lire dans cet ordre
 
@@ -28,6 +29,16 @@ Il se construit **couche par couche**, chaque couche validée par Zak avant la s
 6. [`docs/05-maitre-agent.md`](docs/05-maitre-agent.md) : le superviseur, ses indicateurs, son arbre de diagnostic,
    ses expériences et ses directives.
 7. [`docs/06-feuille-de-route.md`](docs/06-feuille-de-route.md) : les couches suivantes et les décisions à prendre.
+8. [`docs/07-moteur.md`](docs/07-moteur.md) : les outils (`python3 -m moteur …`), le garde-fou, le coffre chiffré.
+
+## Lancer
+
+```
+python3 -m unittest discover -s tests -t .     # 25 tests
+export BROOZE_CLE=…                             # clé du coffre (Drive privé de Zak)
+python3 -m moteur coffre ouvrir
+python3 -m moteur rapport hebdo                 # le diagnostic complet
+```
 
 ## Arrêt d'urgence
 

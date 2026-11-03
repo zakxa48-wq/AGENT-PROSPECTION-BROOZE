@@ -1,0 +1,367 @@
+{
+  "_regle": "Catalogue des causes testées à chaque diagnostic. Chaque cause a un test chiffré ; le moteur donne un niveau de preuve (prouvé, probable, piste, écarté, données insuffisantes). Le maître agent ajoute une cause dès qu'il en soupçonne une nouvelle. En plus de ce catalogue, le moteur scanne automatiquement TOUTES les caractéristiques enregistrées (facteurs).",
+  "causes": [
+    {
+      "id": "V1",
+      "famille": "volume",
+      "titre": "Volume d'envois sous l'objectif",
+      "test": {
+        "type": "volume_sous_objectif"
+      },
+      "action": "Vérifier le stock de prospects prêts, le temps passé par dossier et les refus du garde-fou ; ne jamais dépasser les plafonds."
+    },
+    {
+      "id": "V2",
+      "famille": "volume",
+      "titre": "Stock de prospects qualifiés insuffisant",
+      "test": {
+        "type": "stock_qualifies",
+        "jours": 3
+      },
+      "action": "L'Éclaireur source davantage (nouveaux signaux, zone élargie à l'Alsace) ou demande une nouvelle liste à Zak."
+    },
+    {
+      "id": "D1",
+      "famille": "délivrabilité",
+      "titre": "Délivrabilité sous la cible (bounces et blocages)",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "delivrabilite"
+      },
+      "action": "Regarder D3 (rafales) et D4 (adresses) pour savoir laquelle des deux causes agir."
+    },
+    {
+      "id": "D2",
+      "famille": "délivrabilité",
+      "titre": "Les bounces viennent d'une origine précise",
+      "test": {
+        "type": "facteur",
+        "dimension": "origine",
+        "metrique": "rebond"
+      },
+      "action": "Mettre en quarantaine l'origine qui rebondit et revérifier ses adresses."
+    },
+    {
+      "id": "D4",
+      "famille": "délivrabilité",
+      "titre": "Adresses réellement invalides",
+      "test": {
+        "type": "taux_nature",
+        "natures": [
+          "adresse",
+          "rejet_destinataire"
+        ],
+        "seuil": 0.02
+      },
+      "action": "Adresse trouvée sur une source officielle et notée ; vérification MX dès que le réseau le permet ; aucune adresse devinée."
+    },
+    {
+      "id": "D3",
+      "famille": "délivrabilité",
+      "titre": "Rafales d'envois : Google bloque les messages",
+      "test": {
+        "type": "facteur",
+        "dimension": "rafale_10min",
+        "metrique": "rebond"
+      },
+      "action": "Respecter le garde-fou : 3 minutes minimum entre deux envois, jamais plus de 4 en 10 minutes ; aucun envoi groupé."
+    },
+    {
+      "id": "C1",
+      "famille": "ciblage",
+      "titre": "Le segment explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "segment",
+        "metrique": "reponse"
+      },
+      "action": "Réallouer le volume vers le segment qui répond, réduire celui qui ne répond pas."
+    },
+    {
+      "id": "C2",
+      "famille": "ciblage",
+      "titre": "La zone géographique explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "zone",
+        "metrique": "reponse"
+      },
+      "action": "Concentrer les envois sur la zone qui répond."
+    },
+    {
+      "id": "C3",
+      "famille": "ciblage",
+      "titre": "Le type de boîte (décideur, contact, guichet) explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "type_adresse",
+        "metrique": "reponse"
+      },
+      "action": "Chercher le décideur nommé ; abandonner les guichets."
+    },
+    {
+      "id": "C4",
+      "famille": "ciblage",
+      "titre": "Le score ne prédit pas les réponses",
+      "test": {
+        "type": "score_predictif"
+      },
+      "action": "Recalibrer les poids du score (python3 -m moteur calibrer)."
+    },
+    {
+      "id": "C5",
+      "famille": "ciblage",
+      "titre": "L'origine des prospects (liste de Zak, sourcing de l'agent) explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "origine",
+        "metrique": "reponse"
+      },
+      "action": "Renforcer la source qui répond ; comprendre pourquoi l'autre échoue."
+    },
+    {
+      "id": "P1",
+      "famille": "pertinence",
+      "titre": "Peu de réponses alors que les mails arrivent",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "reponse"
+      },
+      "action": "Ligne 1 plus précise, douleur mieux étayée, idée plus concrète ; vérifier d'abord le ciblage (C1 à C3)."
+    },
+    {
+      "id": "P2",
+      "famille": "pertinence",
+      "titre": "L'approche rédactionnelle explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "approche",
+        "metrique": "positive"
+      },
+      "action": "Laisser l'échantillonnage de Thompson renforcer la meilleure approche ; promouvoir un champion prouvé."
+    },
+    {
+      "id": "P3",
+      "famille": "pertinence",
+      "titre": "Les prospects ne comprennent pas le message",
+      "test": {
+        "type": "part_objection",
+        "classes": [
+          "pas_compris"
+        ],
+        "seuil": 0.1
+      },
+      "action": "Une image concrète au lieu d'un concept ; relire à voix haute ; proposer le visuel."
+    },
+    {
+      "id": "P4",
+      "famille": "rédaction",
+      "titre": "Qualité rédactionnelle insuffisante (note du Sceptique)",
+      "test": {
+        "type": "note_sceptique",
+        "seuil": 8.5
+      },
+      "action": "Revoir les défauts les plus fréquents relevés par le Sceptique et en faire des règles."
+    },
+    {
+      "id": "P5",
+      "famille": "rédaction",
+      "titre": "La longueur du mail explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "longueur",
+        "metrique": "reponse"
+      },
+      "action": "Caler la longueur sur la tranche qui répond."
+    },
+    {
+      "id": "P6",
+      "famille": "rédaction",
+      "titre": "Le type d'objet explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "objet_type",
+        "metrique": "reponse"
+      },
+      "action": "Adopter le type d'objet qui répond."
+    },
+    {
+      "id": "T1",
+      "famille": "timing",
+      "titre": "« Pas le moment » domine les refus",
+      "test": {
+        "type": "part_objection",
+        "classes": [
+          "pas_moment"
+        ],
+        "seuil": 0.25
+      },
+      "action": "Écrire 6 à 10 semaines avant le pic du prospect (calendrier) ; planifier une relance à la date donnée."
+    },
+    {
+      "id": "T2",
+      "famille": "timing",
+      "titre": "Le jour d'envoi explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "jour",
+        "metrique": "reponse"
+      },
+      "action": "Envoyer davantage les jours qui répondent."
+    },
+    {
+      "id": "T3",
+      "famille": "timing",
+      "titre": "Le créneau d'envoi explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "creneau",
+        "metrique": "reponse"
+      },
+      "action": "Déplacer les envois vers le créneau qui répond."
+    },
+    {
+      "id": "T4",
+      "famille": "timing",
+      "titre": "La présence d'un déclencheur daté explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "declencheur",
+        "metrique": "reponse"
+      },
+      "action": "N'écrire qu'avec un déclencheur daté ou un pic dans 6 à 10 semaines."
+    },
+    {
+      "id": "O1",
+      "famille": "offre",
+      "titre": "Le prix ou le budget bloque",
+      "test": {
+        "type": "part_objection",
+        "classes": [
+          "pas_budget"
+        ],
+        "seuil": 0.25
+      },
+      "action": "Remonter à Zak : format d'entrée plus léger, mécanique pilote déduit, cibler les structures avec budget (pubs Meta actives)."
+    },
+    {
+      "id": "O2",
+      "famille": "offre",
+      "titre": "« Déjà un vidéaste / tout en interne » domine les refus",
+      "test": {
+        "type": "part_objection",
+        "classes": [
+          "deja_videaste",
+          "interne"
+        ],
+        "seuil": 0.25
+      },
+      "action": "Angle « déclinaisons courtes de vos rushes existants » dès le 1er mail pour ceux qui ont un vidéaste ; sinon les écarter au ciblage."
+    },
+    {
+      "id": "O3",
+      "famille": "offre",
+      "titre": "Les propositions ne se signent pas",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "closing"
+      },
+      "action": "Remonter à Zak avec les raisons de perte : prix, périmètre, preuve, délai ; tester la mécanique pilote déduit."
+    },
+    {
+      "id": "R1",
+      "famille": "relances",
+      "titre": "Les relances ne rapportent presque rien",
+      "test": {
+        "type": "part_reponses_relances",
+        "seuil": 0.2
+      },
+      "action": "Chaque relance doit apporter un élément neuf (image, 2e idée, preuve réelle) ; revoir les relances."
+    },
+    {
+      "id": "S1",
+      "famille": "vitesse",
+      "titre": "Réponses trop lentes aux prospects intéressés",
+      "test": {
+        "type": "delai_reponse",
+        "heures": 1,
+        "seuil": 0.2
+      },
+      "action": "Le Greffier traite les réponses en priorité 1 à chaque passage ; alerte immédiate à Zak."
+    },
+    {
+      "id": "S2",
+      "famille": "closing",
+      "titre": "Des réponses positives qui ne deviennent pas des rendez-vous",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "rdv"
+      },
+      "action": "Proposer 2 créneaux précis et le passage sur place ; envoyer le visuel tout de suite ; relancer à J+2."
+    },
+    {
+      "id": "S3",
+      "famille": "closing",
+      "titre": "Des rendez-vous sans proposition rapide",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "proposition"
+      },
+      "action": "Proposition « Brooze × [marque] » sous 24 h, préparée par le Closer avant même le rendez-vous."
+    },
+    {
+      "id": "S4",
+      "famille": "récurrence",
+      "titre": "Des clients qui ne passent pas à Brooze Continu",
+      "test": {
+        "type": "etape_sous_cible",
+        "etape": "recurrence"
+      },
+      "action": "Mesurer les résultats du pilote avec le client et proposer Brooze Continu à la livraison."
+    },
+    {
+      "id": "E1",
+      "famille": "erreurs",
+      "titre": "Une erreur se répète",
+      "test": {
+        "type": "erreurs_recurrentes",
+        "jours": 14,
+        "seuil": 2
+      },
+      "action": "Écrire une règle apprise (python3 -m moteur regle) et la vérifier à chaque passage."
+    },
+    {
+      "id": "O4",
+      "famille": "offre",
+      "titre": "Annoncer le prix dès le premier mail fait baisser les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "avec_prix",
+        "metrique": "reponse"
+      },
+      "action": "Pas de prix dans le premier mail : le prix vient quand le prospect le demande ou après un oui."
+    },
+    {
+      "id": "P7",
+      "famille": "rédaction",
+      "titre": "Une pièce jointe dès le premier mail fait baisser les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "avec_pj",
+        "metrique": "reponse"
+      },
+      "action": "Aucune pièce jointe au premier mail : le visuel part après un oui, dans le même fil."
+    },
+    {
+      "id": "C6",
+      "famille": "ciblage",
+      "titre": "La campagne (type de cible et de message) explique les réponses",
+      "test": {
+        "type": "facteur",
+        "dimension": "campagne",
+        "metrique": "reponse"
+      },
+      "action": "Reprendre la recette de la campagne qui répond et arrêter celle qui ne répond pas."
+    }
+  ]
+}
