@@ -52,8 +52,10 @@ redirection, deja_videaste, interne, pas_moment, pas_budget, pas_compris, pas_in
 Une erreur constatée (fait faux, adresse fausse, réponse lente…) : `evenement erreur ID --json '{"categorie": "…",
 "description": "…", "cause": "…"}'`. Si elle se répète, le diagnostic exige une règle : `regle CATEGORIE "texte"`.
 
-En fin de passage : `rapport quotidien` (envoyé à Zak), `coffre fermer`, copie du coffre dans le Drive, commit de
-`config/` si le maître agent l'a modifié.
+Avant chaque premier contact, en plus du garde-fou : recherche Gmail `in:sent to:<adresse>` puis `in:sent <domaine>`.
+
+En fin de passage : `rapport quotidien` (envoyé à Zak), `coffre fermer`, commit de `coffre/` (si le dépôt est privé)
+et de `config/` si le maître agent l'a modifié.
 
 ## 3. Ce que le garde-fou refuse (preuve à l'appui)
 
@@ -79,7 +81,8 @@ Un envoi fait malgré un refus est enregistré comme **erreur** « envoi_non_aut
   `objectifs_courants.json`.
 - `coffre/donnees.tar.gz.enc` (chiffré) + `coffre/empreinte.txt` (contrôle d'intégrité). Tant que le dépôt est
   public, le coffre n'est PAS versionné (le système de sécurité refuse, à juste titre, de publier des données issues de
-  Gmail, même chiffrées) : il est copié dans le Drive privé de Zak. Une fois le dépôt privé, il sera versionné.
+  Gmail, même chiffrées). Une fois le dépôt privé, il sera versionné. En attendant, et dans tous les cas, la boîte
+  Envoyés de Gmail sert de second contrôle anti-doublon avant chaque premier contact.
 - La clé : un fichier texte dans le Google Drive de Zak (« BROOZE prospection - clé du coffre »). À défaut, une
   variable d'environnement `BROOZE_CLE` dans les réglages de l'environnement.
 - Contenu actuel : 211 entités contactées entre le 14/09 et le 02/11/2026 (liste d'exclusion et base
